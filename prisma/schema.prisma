@@ -9,3 +9,108 @@ datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
+
+model Address {
+    id         String     @id @default(uuid())
+    streetName String
+    zipCode    String
+    latitude   Float
+    longitude  Float
+    country    String
+    customers  Customer[]
+    companies  Company[]
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @default(now())
+}
+
+model Customer {
+    id           String        @id @default(uuid())
+    name         String
+    email        String
+    adress       Address       @relation(fields: [addressId], references: [id])
+    addressId    String
+    appointments Appointment[]
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @default(now())
+
+    @@unique([name, email])
+}
+
+model Administrator {
+    id        String   @id @default(uuid())
+    name      String
+    email     String
+    auth0Id   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+
+    @@unique([email, auth0Id])
+}
+
+model Company {
+    id                           String                        @id @default(uuid())
+    name                         String
+    email                        String
+    companyType                  CompanyTypeAssignment[]
+    typeId                       Int
+    address                      Address                       @relation(fields: [addressId], references: [id])
+    addressId                    String
+    auth0Id                      String
+    serviceProviders             ServiceProvider[]
+    appointments                 Appointment[]
+    serviceProvidersAvailability ServiceProviderAvailability[]
+    createdAt                    DateTime                      @default(now())
+    updatedAt                    DateTime                      @default(now())
+
+    @@unique([auth0Id, name])
+}
+
+model CompanyTypeAssignment {
+    id          String      @id @default(uuid())
+    company     Company     @relation(fields: [companyId], references: [id])
+    companyId   String
+    companyType CompanyType @relation(fields: [typeId], references: [id])
+    typeId      String
+}
+
+model CompanyType {
+    id        String                  @id @default(uuid())
+    name      String
+    companies CompanyTypeAssignment[]
+}
+
+model ServiceProvider {
+    id                           String                        @id @default(uuid())
+    name                         String
+    company                      Company                       @relation(fields: [companyId], references: [id])
+    companyId                    String
+    auth0Id                      String
+    appointments                 Appointment[]
+    serviceProvidersAvailability ServiceProviderAvailability[]
+    createdAt                    DateTime                      @default(now())
+    updatedAt                    DateTime                      @default(now())
+}
+
+model ServiceProviderAvailability {
+    id                String          @id @default(uuid())
+    startDate         DateTime
+    endDate           DateTime
+    serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [id])
+    serviceProviderId String
+    companyId         String
+    company           Company         @relation(fields: [companyId], references: [id])
+    available         Boolean         @default(true)
+}
+
+model Appointment {
+    id                String          @id @default(uuid())
+    customerId        String
+    companyId         String
+    serviceProviderId String
+    customer          Customer        @relation(fields: [customerId], references: [id])
+    company           Company         @relation(fields: [companyId], references: [id])
+    date              DateTime
+    createdAt         DateTime        @default(now())
+    updatedAt         DateTime        @default(now())
+    serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [id])
+}
