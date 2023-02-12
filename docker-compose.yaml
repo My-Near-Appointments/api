@@ -4,8 +4,12 @@ services:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     depends_on:
       - db
+    networks:
+      - my-network
   db:
     image: postgres
     env_file:
@@ -15,3 +19,9 @@ services:
       - "5432:5432"
     volumes:
       - /data/postgres:/data/postgres
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    name: my-network
