@@ -1,4 +1,4 @@
-export interface ICompanyResponseDto {
+export class ICompanyResponseDto {
   id: string;
   name: string;
   cnpj: string;

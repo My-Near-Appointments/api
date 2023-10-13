@@ -1,9 +1,11 @@
+import { Injectable } from '@nestjs/common';
 import { ICompanyResponseDto } from 'src/modules/company/dtos/company-response.dto';
 import { CreateCompanyDto } from 'src/modules/company/dtos/create-company.dto';
 import { CompanyMapper } from 'src/modules/company/mappers/company.mapper';
 import { ICompanyRepository } from 'src/modules/company/repositories/company.repository.interface';
 import { PrismaService } from 'src/prisma.service';
 
+@Injectable()
 export class CompanyRepository implements ICompanyRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
