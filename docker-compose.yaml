@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  api:
+    build:
+      context: .
+      target: development
+    image: my-near-appointments-api
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - db-appointments
+    entrypoint: /usr/src/app/entrypoint.sh
+    volumes:
+      - .:/usr/src/app/
+      - /usr/src/app/node_modules
+    networks:
+      - appointments-network
+  db-appointments:
+    image: postgres
+    container_name: db-appointments
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_appointments_data:/var/lib/postgresql/data/
+    networks:
+      - appointments-network
+volumes:
+  postgres_appointments_data:
+networks:
+  appointments-network:
+    name: appointments-network
