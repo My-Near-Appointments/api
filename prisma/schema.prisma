@@ -10,6 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String
+  password  String
+  companyId String?  @unique
+  company   Company? @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@unique([username, email])
+}
+
 model Company {
   id          String   @id @default(uuid())
   name        String
@@ -21,6 +34,7 @@ model Company {
   addressId   String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
+  User        User?
 
   @@unique([name, cnpj, email])
 }

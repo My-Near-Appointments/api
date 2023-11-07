@@ -9,6 +9,25 @@ import { PrismaService } from 'src/prisma.service';
 export class CompanyRepository implements ICompanyRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
+  async getAll(): Promise<ICompanyResponseDto[]> {
+    const companies = await this.prismaService.company.findMany({
+      include: {
+        address: {
+          select: {
+            latitude: true,
+            longitude: true,
+          },
+        },
+      },
+    });
+
+    const result = companies.map((company) =>
+      CompanyMapper.toResponse(company),
+    );
+
+    return result;
+  }
+
   async create(data: CreateCompanyDto): Promise<ICompanyResponseDto> {
     const company = await this.prismaService.company.create({
       data: {

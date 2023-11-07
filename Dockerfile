@@ -16,7 +16,7 @@ COPY . .
 EXPOSE 3000
 
 ###################
-# BUILD PARA PRODUCTION
+# BUILD FOR PRODUCTION
 ###################
 
 FROM node:18-alpine as build

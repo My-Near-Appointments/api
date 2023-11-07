@@ -11,6 +11,10 @@ import { ICompanyRepository } from 'src/modules/company/repositories/company.rep
 export class CompanyRepositoryFake implements ICompanyRepository {
   company: ICompanyResponseDto[] = [];
 
+  async getAll(): Promise<ICompanyResponseDto[]> {
+    return await this.company;
+  }
+
   async create(data: CreateCompanyDto): Promise<ICompanyResponseDto> {
     const mockedData: CompanyData = {
       id: crypto.randomUUID(),
@@ -29,6 +33,7 @@ export class CompanyRepositoryFake implements ICompanyRepository {
     };
 
     this.company.push(CompanyMapper.toResponse(mockedData));
+
     return this.company[this.company.length - 1];
   }
 }
