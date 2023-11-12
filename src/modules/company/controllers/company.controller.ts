@@ -29,6 +29,11 @@ export class CompanyController {
     return this.createCompanyUseCase.execute(companyData);
   }
 
+  @ApiTags('company')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Company list retrieved',
+  })
   @Get()
   async listCompanies() {
     return this.listCompanyUseCase.execute();
