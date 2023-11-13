@@ -12,31 +12,27 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  username  String
-  email     String
+  username  String   @unique
+  email     String   @unique
   password  String
   companyId String?  @unique
   company   Company? @relation(fields: [companyId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-
-  @@unique([username, email])
 }
 
 model Company {
   id          String   @id @default(uuid())
-  name        String
-  cnpj        String
+  name        String   @unique
+  cnpj        String   @unique
   description String
-  email       String
+  email       String   @unique
   adminId     String
   address     Address?
   addressId   String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   User        User?
-
-  @@unique([name, cnpj, email])
 }
 
 model Address {

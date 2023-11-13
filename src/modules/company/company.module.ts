@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common';
 import { CompanyController } from 'src/modules/company/controllers/company.controller';
 import { CompanyProviders } from 'src/modules/company/providers/company.providers';
+import { CreateCompanyUseCase } from 'src/modules/company/usecases/create-company.use-case';
+import { ListCompanyUseCase } from 'src/modules/company/usecases/list-company.usecase';
 import { PrismaService } from 'src/prisma.service';
 
 @Module({
   exports: [...CompanyProviders],
   controllers: [CompanyController],
-  providers: [PrismaService, ...CompanyProviders],
+  providers: [
+    PrismaService,
+    ...CompanyProviders,
+    CreateCompanyUseCase,
+    ListCompanyUseCase,
+  ],
 })
 export class CompanyModule {}
