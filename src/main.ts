@@ -11,6 +11,8 @@ async function bootstrap() {
     .setTitle('Schedule API')
     .setDescription('The scheduler API')
     .setVersion('1.0')
+    .addTag('user')
+    .addTag('auth')
     .addTag('company')
     .build();
   const document = SwaggerModule.createDocument(app, config);
