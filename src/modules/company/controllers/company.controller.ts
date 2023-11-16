@@ -15,6 +15,7 @@ import { ListCompanyUseCase } from 'src/modules/company/usecases/list-company.us
 import { UpdateCompanyUseCase } from 'src/modules/company/usecases/update-company.use-case';
 import { ToggleStatusUseCase } from 'src/modules/company/usecases/toggle-status.use-case';
 import { UpdateCompanyDto } from 'src/modules/company/dtos/update-company.dto';
+import { CompanyAdminGuard } from 'src/modules/shared/infra/guards/company-role.guard';
 
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -56,7 +57,7 @@ export class CompanyController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Validation errors',
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), CompanyAdminGuard)
   @Put(':id')
   async updateCompany(
     @Param('id') id: string,

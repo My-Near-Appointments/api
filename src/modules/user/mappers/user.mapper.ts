@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+import { UserInternalResponseDto } from 'src/modules/user/dtos/user-internal-response.dto';
 import { UserResponseDto } from 'src/modules/user/dtos/user-response.dto';
 import { UserValidationResponseDto } from 'src/modules/user/dtos/user-validation-response.dto';
 
@@ -7,6 +8,17 @@ export class UserMapper {
     return {
       id: user.id,
       name: '',
+      username: user.username,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+
+  static toInternalResponse(user: User): UserInternalResponseDto {
+    return {
+      id: user.id,
+      name: '',
+      role: user.role,
       username: user.username,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,

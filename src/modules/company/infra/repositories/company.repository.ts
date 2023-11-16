@@ -73,6 +73,11 @@ export class CompanyRepository implements ICompanyRepository {
             longitude: data.long,
           },
         },
+        User: {
+          connect: {
+            id: data.adminId,
+          },
+        },
       },
       include: {
         address: {

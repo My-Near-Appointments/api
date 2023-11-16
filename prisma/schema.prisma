@@ -10,13 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  CompanyAdmin
+  Customer
+  Admin
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   username  String   @unique
   email     String   @unique
   password  String
   companyId String?  @unique
   company   Company? @relation(fields: [companyId], references: [id])
+  role      UserRole @default(Customer)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }

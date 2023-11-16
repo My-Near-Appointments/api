@@ -8,8 +8,8 @@ export class FindUserUseCase {
     private readonly userRepository: IUserRepository,
   ) {}
 
-  public async execute(id: number) {
-    const user = await this.userRepository.findById(id);
+  public async execute(id: string) {
+    const user = await this.userRepository.findForInternal(id);
 
     return user;
   }

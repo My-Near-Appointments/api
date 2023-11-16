@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 
 import { CreateUserDto } from 'src/modules/user/dtos/create-user.dto';
+import { UserInternalResponseDto } from 'src/modules/user/dtos/user-internal-response.dto';
 import { UserResponseDto } from 'src/modules/user/dtos/user-response.dto';
 import { UserValidationResponseDto } from 'src/modules/user/dtos/user-validation-response.dto';
 import { UserMapper } from 'src/modules/user/mappers/user.mapper';
@@ -13,10 +14,11 @@ export class UserRepositoryFake implements IUserRepository {
 
   async create(data: CreateUserDto): Promise<UserResponseDto> {
     const mockedData: User = {
-      id: 2,
+      id: crypto.randomUUID(),
       username: data.username,
       password: data.password,
       companyId: crypto.randomUUID(),
+      role: 'Customer',
       email: data.email,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -35,9 +37,15 @@ export class UserRepositoryFake implements IUserRepository {
     return Promise.resolve(UserMapper.toValidationResponse(user));
   }
 
-  findById(id: number): Promise<UserResponseDto> {
+  findById(id: string): Promise<UserResponseDto> {
     const user = this.user.find((user_record) => user_record.id === id);
 
     return Promise.resolve(UserMapper.toResponse(user));
+  }
+
+  findForInternal(id: string): Promise<UserInternalResponseDto> {
+    const user = this.user.find((user_record) => user_record.id === id);
+
+    return Promise.resolve(UserMapper.toInternalResponse(user));
   }
 }

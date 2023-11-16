@@ -7,6 +7,7 @@ import { PrismaService } from 'src/prisma.service';
 import { UserValidationResponseDto } from 'src/modules/user/dtos/user-validation-response.dto';
 
 import { hash } from 'bcrypt';
+import { UserInternalResponseDto } from 'src/modules/user/dtos/user-internal-response.dto';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
@@ -20,13 +21,14 @@ export class UserRepository implements IUserRepository {
         email: data.email,
         password: hashedPassword,
         username: data.username,
+        role: 'CompanyAdmin',
       },
     });
 
     return UserMapper.toResponse(user);
   }
 
-  async findById(id: number): Promise<UserResponseDto> {
+  async findById(id: string): Promise<UserResponseDto> {
     const user = await this.prismaService.user.findUnique({
       where: {
         id,
@@ -34,6 +36,16 @@ export class UserRepository implements IUserRepository {
     });
 
     return UserMapper.toResponse(user);
+  }
+
+  async findForInternal(id: string): Promise<UserInternalResponseDto> {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return UserMapper.toInternalResponse(user);
   }
 
   async findByUsername(
