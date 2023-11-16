@@ -24,6 +24,7 @@ model User {
 model Company {
   id          String   @id @default(uuid())
   name        String   @unique
+  active      Boolean  @default(false)
   cnpj        String   @unique
   description String
   email       String   @unique
