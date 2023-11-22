@@ -10,7 +10,7 @@ import { AuthUseCase } from 'src/modules/auth/usecases/auth.use-case';
 import { UserResponseDto } from 'src/modules/user/dtos/user-response.dto';
 import { ValidateUserUseCase } from 'src/modules/user/usecases/validate-user.use-case';
 
-@Controller('auth')
+@Controller('v1/auth')
 export class AuthController {
   constructor(
     private readonly validateUseCase: ValidateUserUseCase,
@@ -27,7 +27,7 @@ export class AuthController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Validation errors',
   })
-  @Post('v1/login')
+  @Post('login')
   async login(@Body() body: { username: string; password: string }) {
     const user = await this.validateUseCase.execute(
       body.username,
