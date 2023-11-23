@@ -3,7 +3,7 @@ import { CreateEmployeeDto } from 'src/modules/employee/dtos/create-employee.dto
 import { EmployeeResponseDto } from 'src/modules/employee/dtos/employee-response.dto';
 import { UpdateEmployeeDto } from 'src/modules/employee/dtos/update-employee.dto';
 import { EmployeeMapper } from 'src/modules/employee/mappers/employee.mapper';
-import { IEmployeeRepository } from 'src/modules/employee/repositories/employe.repository.interface';
+import { IEmployeeRepository } from 'src/modules/employee/repositories/employee.repository.interface';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()

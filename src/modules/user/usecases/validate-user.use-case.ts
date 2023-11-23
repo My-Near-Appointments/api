@@ -12,7 +12,7 @@ export class ValidateUserUseCase {
   public async execute(username: string, password: string) {
     const user = await this.userRepository.findByUsername(username);
 
-    if (user && bcrypt.compare(password, user.password)) {
+    if (user && (await bcrypt.compare(password, user.password))) {
       return user;
     }
 

@@ -17,71 +17,70 @@ enum UserRole {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  username  String   @unique
-  email     String   @unique
-  password  String
-  companyId String?  @unique
-  company   Company? @relation(fields: [companyId], references: [id])
-  role      UserRole @default(Customer)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id           String        @id @default(uuid())
+  username     String        @unique
+  email        String        @unique
+  password     String
+  companyId    String?       @unique
+  company      Company?      @relation(fields: [companyId], references: [id])
+  role         UserRole      @default(Customer)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
   appointments Appointment[]
 }
 
 model Company {
-  id          String     @id @default(uuid())
-  name        String     @unique
-  active      Boolean    @default(false)
-  cnpj        String     @unique
-  description String
-  email       String     @unique
-  adminId     String
-  address     Address?
-  addressId   String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @default(now())
-  User        User?
-  employees   Employee[]
+  id           String        @id @default(uuid())
+  name         String        @unique
+  active       Boolean       @default(false)
+  cnpj         String        @unique
+  description  String
+  email        String        @unique
+  adminId      String
+  address      Address?
+  addressId    String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  User         User?
+  employees    Employee[]
   appointments Appointment[]
 }
 
 model Employee {
-  id           String       @id @default(uuid())
-  name         String
-  photoLink    String
-  active       Boolean
-  company      Company     @relation(fields: [companyId], references: [id])
-  companyId    String
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @default(now())
-  appointments Appointment[]
+  id                   String                 @id @default(uuid())
+  name                 String
+  photoLink            String
+  active               Boolean
+  company              Company                @relation(fields: [companyId], references: [id])
+  companyId            String
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @default(now())
+  appointments         Appointment[]
   employeeAvailability EmployeeAvailability[]
 }
 
 model EmployeeAvailability {
-  id        String   @id @default(uuid())
-  employee  Employee @relation(fields: [employeeId], references: [id])
+  id         String   @id @default(uuid())
+  employee   Employee @relation(fields: [employeeId], references: [id])
   employeeId String
-  date      DateTime
-  start     DateTime
-  end       DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  start      DateTime
+  end        DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
 model Appointment {
-  id        String   @id @default(uuid())
-  start     DateTime
-  end       DateTime
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  employee  Employee @relation(fields: [employeeId], references: [id])
+  id         String   @id @default(uuid())
+  start      DateTime
+  end        DateTime
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  employee   Employee @relation(fields: [employeeId], references: [id])
   employeeId String
-  company   Company  @relation(fields: [companyId], references: [id])
-  companyId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  company    Company  @relation(fields: [companyId], references: [id])
+  companyId  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
 model Address {
