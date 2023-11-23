@@ -4,6 +4,10 @@ import { CreateCompanyDto } from 'src/modules/company/dtos/create-company.dto';
 import { CompanyRepositoryFake } from 'src/modules/company/repositories/fakes/company.repository.fake';
 import { CreateCompanyUseCase } from 'src/modules/company/usecases/create-company.use-case';
 import { ListCompanyUseCase } from 'src/modules/company/usecases/list-company.usecase';
+import { ToggleStatusUseCase } from 'src/modules/company/usecases/toggle-status.use-case';
+import { UpdateCompanyUseCase } from 'src/modules/company/usecases/update-company.use-case';
+import { CompanyAdminGuardFake } from 'src/modules/shared/fakes/guards/company-role.guard';
+import { CompanyAdminGuard } from 'src/modules/shared/infra/guards/company-role.guard';
 
 describe('#Unit - CompanyController', () => {
   let companyController: CompanyController;
@@ -14,9 +18,14 @@ describe('#Unit - CompanyController', () => {
       providers: [
         CreateCompanyUseCase,
         ListCompanyUseCase,
+        UpdateCompanyUseCase,
+        ToggleStatusUseCase,
         { provide: 'ICompanyRepository', useClass: CompanyRepositoryFake },
       ],
-    }).compile();
+    })
+      .overrideGuard(CompanyAdminGuard)
+      .useClass(CompanyAdminGuardFake)
+      .compile();
 
     companyController = app.get<CompanyController>(CompanyController);
   });
