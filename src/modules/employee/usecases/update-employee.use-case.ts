@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UpdateEmployeeDto } from 'src/modules/employee/dtos/update-employee.dto';
-import { IEmployeeRepository } from 'src/modules/employee/repositories/employe.repository.interface';
+import { IEmployeeRepository } from 'src/modules/employee/repositories/employee.repository.interface';
 
 @Injectable()
 export class UpdateEmployeeUseCase {

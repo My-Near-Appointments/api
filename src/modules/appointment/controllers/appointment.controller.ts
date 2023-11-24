@@ -35,7 +35,7 @@ export class AppointmentController {
     description: 'Validation errors',
   })
   @Post()
-  async create(@Body() data: CreateAppointmentDto) {
+  async createAppointment(@Body() data: CreateAppointmentDto) {
     return this.createAppointmentUseCase.execute(data);
   }
 
@@ -50,7 +50,10 @@ export class AppointmentController {
     description: 'Validation errors',
   })
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: UpdateAppointmentDto) {
+  async updateAppointment(
+    @Param('id') id: string,
+    @Body() data: UpdateAppointmentDto,
+  ) {
     return this.updateAppointmentUseCase.execute(id, data);
   }
 
@@ -65,7 +68,7 @@ export class AppointmentController {
     description: 'Validation errors',
   })
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async deleteAppointment(@Param('id') id: string) {
     return this.deleteAppointmentUseCase.execute(id);
   }
 }

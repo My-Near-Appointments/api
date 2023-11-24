@@ -54,6 +54,10 @@ export class CompanyController {
     type: ICompanyResponseDto,
   })
   @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Company not found',
+  })
+  @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
     description: 'Validation errors',
   })
@@ -73,6 +77,10 @@ export class CompanyController {
     type: ICompanyResponseDto,
   })
   @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Company not found',
+  })
+  @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
     description: 'Validation errors',
   })
@@ -87,6 +95,10 @@ export class CompanyController {
     status: HttpStatus.OK,
     description: 'Company activated',
     type: ICompanyResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Company not found',
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,

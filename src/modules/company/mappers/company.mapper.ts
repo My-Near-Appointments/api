@@ -12,6 +12,7 @@ export class CompanyMapper {
       cnpj: data.cnpj,
       email: data.email,
       description: data.description,
+      active: data.active,
       address: {
         lat: data.address.latitude,
         long: data.address.longitude,

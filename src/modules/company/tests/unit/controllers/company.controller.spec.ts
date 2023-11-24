@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CompanyController } from 'src/modules/company/controllers/company.controller';
 import { CreateCompanyDto } from 'src/modules/company/dtos/create-company.dto';
+import { UpdateCompanyDto } from 'src/modules/company/dtos/update-company.dto';
 import { CompanyRepositoryFake } from 'src/modules/company/repositories/fakes/company.repository.fake';
 import { CreateCompanyUseCase } from 'src/modules/company/usecases/create-company.use-case';
 import { ListCompanyUseCase } from 'src/modules/company/usecases/list-company.usecase';
@@ -48,6 +49,40 @@ describe('#Unit - CompanyController', () => {
     });
   });
 
+  describe('updateCompany', () => {
+    it('should be able to update a company', async () => {
+      const mockedCompany: CreateCompanyDto = {
+        name: 'Test Company',
+        description: 'Test Company Description',
+        cnpj: '11111111111',
+        email: 'XXXXXXXXXXXXX',
+        adminId: '1',
+        lat: 123,
+        long: 1123,
+      };
+
+      const companyCreatedResult = await companyController.createCompany(
+        mockedCompany,
+      );
+
+      const updatedCompany: UpdateCompanyDto = {
+        name: 'Test Company Updated',
+        description: 'Test Company Description Updated',
+        lat: 123,
+        long: 1232,
+      };
+
+      const result = await companyController.updateCompany(
+        companyCreatedResult.id,
+        updatedCompany,
+      );
+
+      expect(result).toHaveProperty('id');
+      expect(result).toHaveProperty('name', updatedCompany.name);
+      expect(result).toHaveProperty('description', updatedCompany.description);
+    });
+  });
+
   describe('listCompanies', () => {
     it('should be able to list companies', async () => {
       const mockedCompanies = [
@@ -82,6 +117,58 @@ describe('#Unit - CompanyController', () => {
       expect(result).toBeInstanceOf(Array);
       expect(result[0]).toHaveProperty('id');
       expect(result[0]).toHaveProperty('name');
+    });
+  });
+
+  describe('deactivateCompany', () => {
+    it('should be able to deactivate a company', async () => {
+      const mockedCompany: CreateCompanyDto = {
+        name: 'Test Company',
+        description: 'Test Company Description',
+        cnpj: '11111111111',
+        email: 'XXXXXXXXXXXXX',
+        adminId: '1',
+        lat: 123,
+        long: 1123,
+      };
+
+      const companyCreatedResult = await companyController.createCompany(
+        mockedCompany,
+      );
+
+      const result = await companyController.deactivateCompany(
+        companyCreatedResult.id,
+      );
+
+      expect(result).toHaveProperty('id');
+      expect(result).toHaveProperty('name', mockedCompany.name);
+      expect(result).toHaveProperty('active', false);
+    });
+  });
+
+  describe('activateCompany', () => {
+    it('should be able to activate a company', async () => {
+      const mockedCompany: CreateCompanyDto = {
+        name: 'Test Company',
+        description: 'Test Company Description',
+        cnpj: '11111111111',
+        email: 'XXXXXXXXXXXXX',
+        adminId: '1',
+        lat: 123,
+        long: 1123,
+      };
+
+      const companyCreatedResult = await companyController.createCompany(
+        mockedCompany,
+      );
+
+      const result = await companyController.activateCompany(
+        companyCreatedResult.id,
+      );
+
+      expect(result).toHaveProperty('id');
+      expect(result).toHaveProperty('name', mockedCompany.name);
+      expect(result).toHaveProperty('active', true);
     });
   });
 });
