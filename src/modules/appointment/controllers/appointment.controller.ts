@@ -7,8 +7,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
+
 import { AppointmentResponseDto } from 'src/modules/appointment/dtos/appointment-response.dto';
 import { CreateAppointmentDto } from 'src/modules/appointment/dtos/create-appointment.dto';
 import { UpdateAppointmentDto } from 'src/modules/appointment/dtos/update-appointment.dto';

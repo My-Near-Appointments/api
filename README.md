@@ -1,73 +1,103 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Visão Geral da Aplicação
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta aplicação é um serviço de backend robusto e escalável construído com NestJS. Foi projetado para gerenciar usuários e empresas.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Estrutura de Pastas
 
-## Description
+A estrutura de pastas da aplicação segue o padrão de módulos do NestJS. Cada módulo tem sua própria pasta, que contém arquivos para Controllers, DTOs, Use Cases e Guards. Aqui está um mapa de caminho para a estrutura de pastas:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
+```
+src/
+├── modules/
+│   ├── user/
+│   │   ├── dtos/
+│   │   ├── infra/
+│   │   ├── controllers/
+│   │   ├── providers/
+│   │   ├── repositories/
+│   │   ├── tests/
+│   │   ├── usecases/
+│   ├── company/
+│   │   ├── dtos/
+│   │   ├── infra/
+│   │   ├── controllers/
+│   │   ├── providers/
+│   │   ├── repositories/
+│   │   ├── tests/
+│   │   ├── usecases/
+│   ├── auth/
+│   │   ├── dtos/
+│   │   ├── infra/
+│   │   ├── controllers/
+│   │   ├── providers/
+│   │   ├── repositories/
+│   │   ├── tests/
+│   │   ├── usecases/
+│   ├── appointment/
+│   │   ├── dtos/
+│   │   ├── infra/
+│   │   ├── controllers/
+│   │   ├── providers/
+│   │   ├── repositories/
+│   │   ├── tests/
+│   │   ├── usecases/
+│   ├── employee/
+│   │   ├── dtos/
+│   │   ├── infra/
+│   │   ├── controllers/
+│   │   ├── providers/
+│   │   ├── repositories/
+│   │   ├── tests/
+│   │   ├── usecases/
+├── shared/
+│   ├── infra/
+│   │   ├── exception-filters/
+│   │   ├── infra/
 ```
 
-## Running the app
+## Arquitetura Limpa
 
-```bash
-# development
-$ npm run start
+A aplicação segue os princípios da Arquitetura Limpa. Os casos de uso encapsulam a lógica de negócios e são independentes de qualquer detalhe externo, como o banco de dados ou o framework web. Os Controllers e DTOs são responsáveis pela entrada e saída de dados, enquanto os Guards protegem certas rotas.
 
-# watch mode
-$ npm run start:dev
+## Módulos
 
-# production mode
-$ npm run start:prod
-```
+A aplicação é dividida em vários módulos:
 
-## Test
+1. Módulo de User: Este módulo é responsável por lidar com todas as operações relacionadas aos usuários, como criar um novo usuário, validar credenciais do usuário, etc. Ele usa DTOs (Data Transfer Objects) para lidar com a validação e transferência de dados.
 
-```bash
-# unit tests
-$ npm run test
+2. Módulo de Company: Este módulo é responsável por gerenciar empresas. Ele permite operações como criar, listar, atualizar empresas e alternar seu status.
 
-# e2e tests
-$ npm run test:e2e
+3. Módulo de Auth: Este módulo é responsável por autenticar usuários e gerenciar sessões.
 
-# test coverage
-$ npm run test:cov
-```
+4. Módulo de Appointment: Este módulo é responsável por gerenciar agendamentos.
 
-## Support
+5. Módulo de Employee: Este módulo é responsável por gerenciar funcionários.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+6. Módulo Shared: Este módulo contém código que é compartilhado entre os outros módulos, como Guards e infraestrutura comum.
 
-## Stay in touch
+## Controladores
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Cada módulo tem seu próprio controlador:
 
-## License
+1. UserController: Lida com todas as solicitações HTTP relacionadas aos usuários. Ele usa CreateUserUseCase para criar um novo usuário.
 
-Nest is [MIT licensed](LICENSE).
+2. CompanyController: Lida com todas as solicitações HTTP relacionadas às empresas. Ele usa vários casos de uso como CreateCompanyUseCase, ListCompanyUseCase, UpdateCompanyUseCase e ToggleStatusUseCase para lidar com diferentes operações.
+
+3. AuthController: Lida com todas as solicitações HTTP relacionadas à autenticação. Ele usa vários casos de uso para lidar com operações de autenticação.
+
+4. AppointmentController: Lida com todas as solicitações HTTP relacionadas aos agendamentos. Ele usa vários casos de uso como CreateAppointmentUseCase, DeleteAppointmentUseCase e UpdateAppointmentUseCase para lidar com diferentes operações.
+
+5. EmployeeController: Lida com todas as solicitações HTTP relacionadas aos funcionários. Ele usa vários casos de uso para lidar com diferentes operações.
+
+## Guards
+
+A aplicação usa Guards para proteger certas rotas. Por exemplo, o CompanyAdminGuard é usado para proteger rotas que só devem ser acessíveis por administradores de empresas.
+
+## Swagger
+
+A aplicação usa Swagger para documentação da API. Cada método do controlador é decorado com decoradores ApiTags e ApiResponse para gerar a UI do Swagger.
+
+## Passport
+
+A aplicação usa Passport para lidar com a autenticação. O AuthGuard do Passport é usado no CompanyController para proteger certas rotas.
+
