@@ -43,7 +43,7 @@ export class EmployeeController {
   })
   @UseGuards(AuthGuard('jwt'), CompanyAdminGuard)
   @Post()
-  async create(@Body() data: CreateEmployeeDto) {
+  async createEmployee(@Body() data: CreateEmployeeDto) {
     return await this.createEmployeeUseCase.execute(data);
   }
 
@@ -59,7 +59,10 @@ export class EmployeeController {
   })
   @UseGuards(AuthGuard('jwt'), CompanyAdminGuard)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: UpdateEmployeeDto) {
+  async updateEmployee(
+    @Param('id') id: string,
+    @Body() data: UpdateEmployeeDto,
+  ) {
     return await this.updateEmployeeUseCase.execute(id, data);
   }
 
@@ -75,7 +78,7 @@ export class EmployeeController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Put('/deactivate/:employeeId')
-  async deactivateCompany(@Param('employeeId') id: string) {
+  async deactivateEmployee(@Param('employeeId') id: string) {
     return this.toggleEmployeeStatusUseCase.execute(id, false);
   }
 
@@ -91,7 +94,7 @@ export class EmployeeController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Put('/activate/:employeeId')
-  async activateCompany(@Param('employeeId') id: string) {
+  async activateEmployee(@Param('employeeId') id: string) {
     return this.toggleEmployeeStatusUseCase.execute(id, true);
   }
 
@@ -123,7 +126,7 @@ export class EmployeeController {
   })
   @UseGuards(AuthGuard('jwt'), CompanyAdminGuard)
   @Delete(':employeeId')
-  async delete(@Param('employeeId') employeeId: string) {
+  async deleteEmployee(@Param('employeeId') employeeId: string) {
     return await this.deleteEmployeeUseCase.execute(employeeId);
   }
 }

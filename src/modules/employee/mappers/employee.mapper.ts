@@ -7,6 +7,7 @@ export class EmployeeMapper {
       id: data.id,
       name: data.name,
       photoLink: data.name,
+      active: data.active,
       companyId: data.companyId,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,

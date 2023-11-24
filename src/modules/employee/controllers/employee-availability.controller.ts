@@ -40,7 +40,9 @@ export class EmployeeAvailabilityController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  async create(@Body() data: CreateEmployeeAvailabilityDto) {
+  async createEmployeeAvailability(
+    @Body() data: CreateEmployeeAvailabilityDto,
+  ) {
     return await this.createEmployeeAvailabilityUseCase.execute(data);
   }
 
@@ -56,7 +58,7 @@ export class EmployeeAvailabilityController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Put(':employeeId')
-  async update(
+  async updateEmployeeAvailability(
     @Param('employeeId') id: string,
     @Body() data: UpdateEmployeeAvailabilityDto,
   ) {
@@ -75,7 +77,7 @@ export class EmployeeAvailabilityController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Get(':employeeId')
-  async list(@Param('employeeId') id: string) {
+  async listByEmployeeId(@Param('employeeId') id: string) {
     return await this.listEmployeeAvailabilityUseCase.execute(id);
   }
 
@@ -91,7 +93,7 @@ export class EmployeeAvailabilityController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Delete(':employeeId')
-  async delete(@Param('employeeId') id: string) {
+  async deleteEmployeeAvailability(@Param('employeeId') id: string) {
     return await this.deleteEmployeeAvailabilityUseCase.execute(id);
   }
 }
