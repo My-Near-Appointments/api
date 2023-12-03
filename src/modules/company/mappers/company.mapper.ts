@@ -1,8 +1,16 @@
 import { Company } from '@prisma/client';
+import { States } from 'src/modules/company/dtos/address.dto';
 import { ICompanyResponseDto } from 'src/modules/company/dtos/company-response.dto';
 
 export type CompanyData = {
-  address: { latitude: number; longitude: number };
+  address: {
+    number: number;
+    street: string;
+    city: string;
+    state: string;
+    neighborhood: string;
+    zip: string;
+  };
 } & Company;
 export class CompanyMapper {
   static toResponse(data: CompanyData): ICompanyResponseDto {
@@ -14,8 +22,12 @@ export class CompanyMapper {
       description: data.description,
       active: data.active,
       address: {
-        lat: data.address.latitude,
-        long: data.address.longitude,
+        number: data.address.number,
+        street: data.address.street,
+        city: data.address.city,
+        state: data.address.state as States,
+        neighborhood: data.address.neighborhood,
+        zip: data.address.zip,
       },
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,

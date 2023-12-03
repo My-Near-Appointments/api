@@ -84,11 +84,15 @@ model Appointment {
 }
 
 model Address {
-  id        String   @id @default(uuid())
-  latitude  Float
-  longitude Float
-  companyId String   @unique
-  company   Company  @relation(fields: [companyId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id           String   @id @default(uuid())
+  street       String
+  number       Int
+  neighborhood String
+  city         String
+  state        String
+  zip          String
+  companyId    String   @unique
+  company      Company  @relation(fields: [companyId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
 }

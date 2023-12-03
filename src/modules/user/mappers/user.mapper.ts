@@ -1,9 +1,16 @@
 import { User } from '@prisma/client';
+import { UserCreatedResponseDto } from 'src/modules/user/dtos/user-created-response.dto';
 import { UserInternalResponseDto } from 'src/modules/user/dtos/user-internal-response.dto';
 import { UserResponseDto } from 'src/modules/user/dtos/user-response.dto';
 import { UserValidationResponseDto } from 'src/modules/user/dtos/user-validation-response.dto';
 
 export class UserMapper {
+  static toUserCreatedResponse(user: User): UserCreatedResponseDto {
+    return {
+      id: user.id,
+    };
+  }
+
   static toResponse(user: User): UserResponseDto {
     return {
       id: user.id,

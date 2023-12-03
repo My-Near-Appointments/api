@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { States } from 'src/modules/company/dtos/address.dto';
 import { ICompanyResponseDto } from 'src/modules/company/dtos/company-response.dto';
 import { CreateCompanyDto } from 'src/modules/company/dtos/create-company.dto';
 import { UpdateCompanyDto } from 'src/modules/company/dtos/update-company.dto';
@@ -29,8 +30,12 @@ export class CompanyRepositoryFake implements ICompanyRepository {
       cnpj: data.cnpj,
       email: data.email,
       address: {
-        latitude: data.lat,
-        longitude: data.long,
+        number: data.address.number,
+        street: data.address.street,
+        city: data.address.city,
+        state: data.address.state as States,
+        neighborhood: data.address.neighborhood,
+        zip: data.address.zip,
       },
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -52,8 +57,13 @@ export class CompanyRepositoryFake implements ICompanyRepository {
       active: false,
       description: data.description,
       address: {
-        latitude: data.lat,
-        longitude: data.long,
+        id: crypto.randomUUID(),
+        number: data.address.number,
+        street: data.address.street,
+        city: data.address.city,
+        state: data.address.state as States,
+        neighborhood: data.address.neighborhood,
+        zip: data.address.zip,
       },
       createdAt: new Date(),
       updatedAt: new Date(),

@@ -8,12 +8,14 @@ import { UserValidationResponseDto } from 'src/modules/user/dtos/user-validation
 
 import { hash } from 'bcrypt';
 import { UserInternalResponseDto } from 'src/modules/user/dtos/user-internal-response.dto';
+import { UserRole } from '@prisma/client';
+import { UserCreatedResponseDto } from 'src/modules/user/dtos/user-created-response.dto';
+import { UpdateUserDto } from 'src/modules/user/dtos/update-user.dto';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
   constructor(private readonly prismaService: PrismaService) {}
-
-  async create(data: CreateUserDto): Promise<UserResponseDto> {
+  async create(data: CreateUserDto): Promise<UserCreatedResponseDto> {
     const hashedPassword = await hash(data.password, 10);
 
     const user = await this.prismaService.user.create({
@@ -21,7 +23,20 @@ export class UserRepository implements IUserRepository {
         email: data.email,
         password: hashedPassword,
         username: data.username,
-        role: 'CompanyAdmin',
+        role: data.userRole as UserRole,
+      },
+    });
+
+    return UserMapper.toUserCreatedResponse(user);
+  }
+
+  async update(id: string, data: UpdateUserDto): Promise<UserResponseDto> {
+    const hashedPassword = await hash(data.password, 10);
+
+    const user = await this.prismaService.user.update({
+      where: { id },
+      data: {
+        password: hashedPassword,
       },
     });
 

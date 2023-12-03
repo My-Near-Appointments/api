@@ -1,3 +1,5 @@
+import { States } from 'src/modules/company/dtos/address.dto';
+
 export class ICompanyResponseDto {
   id: string;
   name: string;
@@ -8,7 +10,11 @@ export class ICompanyResponseDto {
   createdAt: Date;
   updatedAt: Date;
   address: {
-    lat: number;
-    long: number;
+    number: number;
+    street: string;
+    neighborhood: string;
+    city: string;
+    state: States;
+    zip: string;
   };
 }

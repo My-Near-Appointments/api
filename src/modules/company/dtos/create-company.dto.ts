@@ -1,5 +1,7 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { AddressDto } from 'src/modules/company/dtos/address.dto';
+import { Type } from 'class-transformer';
 
 export class CreateCompanyDto {
   @ApiProperty({
@@ -38,16 +40,9 @@ export class CreateCompanyDto {
   email: string;
 
   @ApiProperty({
-    description: 'Latitude data about the company',
+    description: 'Company address',
   })
-  @IsNumber()
-  @IsNotEmpty()
-  lat: number;
-
-  @ApiProperty({
-    description: 'Longitude data about the company',
-  })
-  @IsNumber()
-  @IsNotEmpty()
-  long: number;
+  @ValidateNested()
+  @Type(() => AddressDto)
+  address: AddressDto;
 }

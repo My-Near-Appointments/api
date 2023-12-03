@@ -38,6 +38,7 @@ async function bootstrap() {
     .addTag('employee')
     .addTag('employee-availability')
     .addTag('appointment')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

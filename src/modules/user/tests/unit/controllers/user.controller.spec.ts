@@ -26,12 +26,14 @@ describe('#Unit - UserController', () => {
         name: 'Test Name',
         email: 'test@test.com',
         password: 'TestPassword123',
+        userRole: 'Customer',
       };
 
       const result = await userController.createUser(mockedUser);
 
+      expect(result).toHaveProperty('message');
       expect(result).toHaveProperty('id');
-      expect(result).toHaveProperty('username', mockedUser.username);
+      expect(result.message).toBe('Usuário criado com sucesso');
     });
   });
 });

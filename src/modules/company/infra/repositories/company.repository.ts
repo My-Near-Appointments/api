@@ -15,8 +15,12 @@ export class CompanyRepository implements ICompanyRepository {
       include: {
         address: {
           select: {
-            latitude: true,
-            longitude: true,
+            number: true,
+            street: true,
+            city: true,
+            state: true,
+            neighborhood: true,
+            zip: true,
           },
         },
       },
@@ -40,18 +44,17 @@ export class CompanyRepository implements ICompanyRepository {
         description: data.description,
         address: {
           update: {
-            latitude: data.lat,
-            longitude: data.long,
+            number: data.address.number,
+            street: data.address.street,
+            city: data.address.city,
+            state: data.address.state,
+            neighborhood: data.address.neighborhood,
+            zip: data.address.zip,
           },
         },
       },
       include: {
-        address: {
-          select: {
-            latitude: true,
-            longitude: true,
-          },
-        },
+        address: true,
       },
     });
 
@@ -69,8 +72,12 @@ export class CompanyRepository implements ICompanyRepository {
         adminId: data.adminId,
         address: {
           create: {
-            latitude: data.lat,
-            longitude: data.long,
+            number: data.address.number,
+            street: data.address.street,
+            city: data.address.city,
+            state: data.address.state,
+            neighborhood: data.address.neighborhood,
+            zip: data.address.zip,
           },
         },
         User: {
@@ -82,8 +89,12 @@ export class CompanyRepository implements ICompanyRepository {
       include: {
         address: {
           select: {
-            latitude: true,
-            longitude: true,
+            number: true,
+            street: true,
+            city: true,
+            state: true,
+            neighborhood: true,
+            zip: true,
           },
         },
       },
@@ -106,8 +117,12 @@ export class CompanyRepository implements ICompanyRepository {
       include: {
         address: {
           select: {
-            latitude: true,
-            longitude: true,
+            number: true,
+            street: true,
+            city: true,
+            state: true,
+            neighborhood: true,
+            zip: true,
           },
         },
       },

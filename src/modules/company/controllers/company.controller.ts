@@ -41,7 +41,6 @@ export class CompanyController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Validation errors',
   })
-  @UseGuards(AuthGuard('jwt'))
   @Post()
   async createCompany(@Body() companyData: CreateCompanyDto) {
     return this.createCompanyUseCase.execute(companyData);
