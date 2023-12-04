@@ -19,6 +19,7 @@ import { CompanyAdminGuard } from 'src/modules/shared/infra/guards/company-role.
 
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { GetCompanyUseCase } from 'src/modules/company/usecases/get-company.use-case';
 
 @Controller('v1/company')
 export class CompanyController {
@@ -27,6 +28,7 @@ export class CompanyController {
     private readonly listCompanyUseCase: ListCompanyUseCase,
     private readonly updateCompanyUseCase: UpdateCompanyUseCase,
     private readonly toggleStatusUseCase: ToggleStatusUseCase,
+    private readonly getCompanyUseCase: GetCompanyUseCase,
   ) {
     //
   }
@@ -44,6 +46,22 @@ export class CompanyController {
   @Post()
   async createCompany(@Body() companyData: CreateCompanyDto) {
     return this.createCompanyUseCase.execute(companyData);
+  }
+
+  @ApiTags('company')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Company found by owner id',
+    type: ICompanyResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Validation errors',
+  })
+  @UseGuards(AuthGuard('jwt'), CompanyAdminGuard)
+  @Get(':id')
+  async getCompany(@Param('userId') userId: string) {
+    return this.getCompanyUseCase.execute(userId);
   }
 
   @ApiTags('company')

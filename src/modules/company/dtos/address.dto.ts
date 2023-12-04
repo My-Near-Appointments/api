@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import {
   IsString,
   IsNotEmpty,
@@ -48,6 +49,7 @@ export class AddressDto {
   @ApiProperty({
     description: 'Street number',
   })
+  @Transform(({ value }) => Number(value), { toClassOnly: true })
   @IsNumber()
   @IsNotEmpty()
   @IsPositive()
