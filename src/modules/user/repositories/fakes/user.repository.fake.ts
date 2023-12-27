@@ -19,6 +19,7 @@ export class UserRepositoryFake implements IUserRepository {
       id: crypto.randomUUID(),
       username: data.username,
       password: data.password,
+      name: data.name,
       companyId: crypto.randomUUID(),
       role: 'Customer',
       email: data.email,

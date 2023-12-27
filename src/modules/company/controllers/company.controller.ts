@@ -41,7 +41,11 @@ export class CompanyController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Validation errors',
+    description: 'Request error',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Server error',
   })
   @Post()
   async createCompany(@Body() companyData: CreateCompanyDto) {
@@ -131,6 +135,10 @@ export class CompanyController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Company list retrieved',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Server error',
   })
   @UseGuards(AuthGuard('jwt'))
   @Get()
