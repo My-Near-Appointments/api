@@ -21,6 +21,7 @@ export class UserRepository implements IUserRepository {
     const user = await this.prismaService.user.create({
       data: {
         email: data.email,
+        name: data.name,
         password: hashedPassword,
         username: data.username,
         role: data.userRole as UserRole,
