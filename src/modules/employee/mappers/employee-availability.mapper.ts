@@ -9,6 +9,7 @@ export class EmployeeAvailabilityMapper {
       id: data.id,
       start: data.start,
       end: data.end,
+      companyId: data.companyId,
       employeeId: data.employeeId,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,

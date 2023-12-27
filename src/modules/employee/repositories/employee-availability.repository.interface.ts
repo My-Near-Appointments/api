@@ -12,4 +12,8 @@ export interface IEmployeeAvailabilityRepository {
   ): Promise<EmployeeAvailabilityResponseDto>;
   delete(id: string): Promise<EmployeeAvailabilityResponseDto>;
   findByEmployeeId(id: string): Promise<EmployeeAvailabilityResponseDto[]>;
+  findByStartAndEnd(
+    start: Date,
+    end: Date,
+  ): Promise<EmployeeAvailabilityResponseDto>;
 }

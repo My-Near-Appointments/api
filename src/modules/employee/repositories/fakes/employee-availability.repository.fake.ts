@@ -17,6 +17,7 @@ export class EmployeeAvailabilityRepositoryFake
       id: crypto.randomUUID(),
       start: data.start,
       end: data.end,
+      companyId: data.companyId,
       employeeId: data.employeeId,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -69,5 +70,21 @@ export class EmployeeAvailabilityRepositoryFake
       );
 
     return filteredEmployeeAvailability;
+  }
+
+  async findByStartAndEnd(
+    start: Date,
+    end: Date,
+  ): Promise<EmployeeAvailabilityResponseDto> {
+    const employeeAvailability = this.employeeAvailability.find(
+      (availability) => {
+        return (
+          availability.start.getTime() === start.getTime() &&
+          availability.end.getTime() === end.getTime()
+        );
+      },
+    );
+
+    return EmployeeAvailabilityMapper.toResponse(employeeAvailability);
   }
 }

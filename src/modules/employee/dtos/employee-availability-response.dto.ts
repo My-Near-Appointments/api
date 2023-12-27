@@ -3,6 +3,7 @@ export class EmployeeAvailabilityResponseDto {
   start: Date;
   end: Date;
   employeeId: string;
+  companyId: string;
   createdAt: Date;
   updatedAt: Date;
 }

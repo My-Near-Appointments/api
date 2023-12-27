@@ -22,4 +22,11 @@ export class CreateEmployeeAvailabilityDto {
   @IsString()
   @IsNotEmpty()
   employeeId: string;
+
+  @ApiProperty({
+    description: 'Id of the company',
+  })
+  @IsString()
+  @IsNotEmpty()
+  companyId: string;
 }

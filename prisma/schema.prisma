@@ -62,6 +62,7 @@ model Employee {
 model EmployeeAvailability {
   id         String   @id @default(uuid())
   employee   Employee @relation(fields: [employeeId], references: [id])
+  companyId  String
   employeeId String
   start      DateTime
   end        DateTime

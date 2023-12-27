@@ -20,6 +20,7 @@ export class EmployeeAvailabilityRepository
         data: {
           start: data.start,
           end: data.end,
+          companyId: data.companyId,
           employee: {
             connect: {
               id: data.employeeId,
@@ -29,6 +30,51 @@ export class EmployeeAvailabilityRepository
       });
 
     return EmployeeAvailabilityMapper.toResponse(employeeAvailability);
+  }
+
+  async findByStartAndEnd(
+    start: Date,
+    end: Date,
+  ): Promise<EmployeeAvailabilityResponseDto> {
+    const employeeAvailability =
+      await this.prismaService.employeeAvailability.findMany({
+        where: {
+          OR: [
+            {
+              AND: [
+                {
+                  start: {
+                    lte: start,
+                  },
+                },
+                {
+                  end: {
+                    gte: start,
+                  },
+                },
+              ],
+            },
+            {
+              AND: [
+                {
+                  start: {
+                    lte: end,
+                  },
+                },
+                {
+                  end: {
+                    gte: end,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+
+    return employeeAvailability.length > 0
+      ? EmployeeAvailabilityMapper.toResponse(employeeAvailability[0])
+      : null;
   }
 
   async update(
