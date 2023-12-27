@@ -35,7 +35,11 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Validation errors',
+    description: 'Request errors',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Server errors',
   })
   @Post()
   async createUser(@Body() userData: CreateUserDto) {
@@ -52,7 +56,11 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Validation errors',
+    description: 'Request errors',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Request errors',
   })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))

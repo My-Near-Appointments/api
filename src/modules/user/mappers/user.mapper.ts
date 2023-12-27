@@ -24,7 +24,7 @@ export class UserMapper {
   static toInternalResponse(user: User): UserInternalResponseDto {
     return {
       id: user.id,
-      name: '',
+      name: user.name,
       role: user.role,
       username: user.username,
       createdAt: user.createdAt,

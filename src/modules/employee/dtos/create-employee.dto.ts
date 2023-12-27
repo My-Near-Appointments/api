@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 export class CreateEmployeeDto {
   @ApiProperty({
@@ -12,7 +12,7 @@ export class CreateEmployeeDto {
   @ApiProperty({
     description: 'Photo for the employee',
   })
-  @IsString()
+  @IsUrl()
   @IsNotEmpty()
   photoLink: string;
 
