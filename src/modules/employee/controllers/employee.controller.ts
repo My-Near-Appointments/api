@@ -108,7 +108,7 @@ export class EmployeeController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Validation errors',
   })
-  @UseGuards(AuthGuard('jwt'), CompanyAdminGuard)
+  @UseGuards(AuthGuard('jwt'))
   @Get(':companyId')
   async listByCompany(@Param('companyId') companyId: string) {
     return await this.listEmployeeUseCase.execute(companyId);

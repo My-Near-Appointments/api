@@ -33,7 +33,27 @@ export class CompanyRepository implements ICompanyRepository {
     return result;
   }
 
-  async get(userId: string): Promise<ICompanyResponseDto> {
+  async get(id: string): Promise<ICompanyResponseDto> {
+    const company = await this.prismaService.company.findFirst({
+      where: { id },
+      include: {
+        address: {
+          select: {
+            number: true,
+            street: true,
+            city: true,
+            state: true,
+            neighborhood: true,
+            zip: true,
+          },
+        },
+      },
+    });
+
+    return CompanyMapper.toResponse(company);
+  }
+
+  async getByOwnerId(userId: string): Promise<ICompanyResponseDto> {
     const company = await this.prismaService.company.findFirst({
       where: { adminId: userId },
       include: {

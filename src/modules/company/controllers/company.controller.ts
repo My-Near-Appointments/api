@@ -19,7 +19,8 @@ import { CompanyAdminGuard } from 'src/modules/shared/infra/guards/company-role.
 
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { GetCompanyUseCase } from 'src/modules/company/usecases/get-company.use-case';
+import { GetCompanyByOwnerUseCase } from 'src/modules/company/usecases/get-company-by-owner.use-case';
+import { GetCompanyByIdUseCase } from 'src/modules/company/usecases/get-company-by-id.use-case';
 
 @Controller('v1/company')
 export class CompanyController {
@@ -28,7 +29,8 @@ export class CompanyController {
     private readonly listCompanyUseCase: ListCompanyUseCase,
     private readonly updateCompanyUseCase: UpdateCompanyUseCase,
     private readonly toggleStatusUseCase: ToggleStatusUseCase,
-    private readonly getCompanyUseCase: GetCompanyUseCase,
+    private readonly getCompanyByOwnerUseCase: GetCompanyByOwnerUseCase,
+    private readonly getCompanyByIdUseCase: GetCompanyByIdUseCase,
   ) {
     //
   }
@@ -60,12 +62,36 @@ export class CompanyController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Validation errors',
+    description: 'Request errors',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Server error',
   })
   @UseGuards(AuthGuard('jwt'), CompanyAdminGuard)
+  @Get('/owner/:userId')
+  async getCompanyByOwner(@Param('userId') userId: string) {
+    return this.getCompanyByOwnerUseCase.execute(userId);
+  }
+
+  @ApiTags('company')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Company found by id',
+    type: ICompanyResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Request errors',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Server error',
+  })
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
-  async getCompany(@Param('userId') userId: string) {
-    return this.getCompanyUseCase.execute(userId);
+  async getCompany(@Param('id') id: string) {
+    return this.getCompanyByIdUseCase.execute(id);
   }
 
   @ApiTags('company')

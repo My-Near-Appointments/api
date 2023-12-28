@@ -134,7 +134,7 @@ export class EmployeeAvailabilityRepository
     const employeeAvailabilities =
       await this.prismaService.employeeAvailability.findMany({
         where: {
-          id,
+          employeeId: id,
         },
       });
 

@@ -46,6 +46,12 @@ export class CompanyRepositoryFake implements ICompanyRepository {
     return CompanyMapper.toResponse(this.company[this.company.length - 1]);
   }
 
+  async getByOwnerId(userId: string): Promise<ICompanyResponseDto> {
+    const company = this.company.find((value) => value.adminId === userId);
+
+    return CompanyMapper.toResponse(company);
+  }
+
   async get(id: string): Promise<ICompanyResponseDto> {
     const company = this.company.find((value) => value.id === id);
 
