@@ -1,3 +1,24 @@
+# My Near Appointments - Back-end
+
+Projeto escrito com [NestJS](https://nestjs.com/)
+
+Para rodar este projeto localmente utilizando Docker, siga os passos abaixo:
+
+1. Certifique-se de que o Docker esteja instalado em sua máquina. Caso não esteja, visite [Docker](https://www.docker.com/get-started) para instruções de instalação.
+
+2. Clone o repositório do projeto para sua máquina local.
+
+3. Abra um terminal e navegue até a pasta raiz do projeto clonado.
+
+4. Execute o comando `docker build -t my-near-appointments-backend .` para construir a imagem Docker do projeto. Este processo pode levar alguns minutos.
+
+5. Após a construção da imagem, execute o comando `docker run -d -p 3000:3000 my-near-appointments-backend` para iniciar o container. O projeto estará acessível através do endereço `http://localhost:3000`.
+
+6. Para parar o container, utilize o comando `docker stop <container_id>`, substituindo `<container_id>` pelo ID do seu container.
+
+Com esses passos, você será capaz de rodar o projeto localmente utilizando Docker.
+
+
 # Visão Geral da Aplicação
 
 Esta aplicação é um serviço de backend robusto e escalável construído com NestJS. Foi projetado para gerenciar usuários e empresas.
@@ -54,6 +75,12 @@ src/
 │   │   ├── exception-filters/
 │   │   ├── infra/
 ```
+
+## Swagger
+A documentação da API é feita utilizando o Swagger, que é uma ferramenta de descrição de interface para descrever APIs RESTful expressas usando JSON. O Swagger é usado para ajudar a planejar e documentar a API de forma interativa. Isso permite que tanto os desenvolvedores quanto os usuários finais compreendam rapidamente as capacidades de uma API sem ter acesso direto ao código-fonte.
+
+Para acessar a documentação da API gerada pelo Swagger, você precisa iniciar o servidor da aplicação. Uma vez que o servidor esteja rodando, você pode acessar a UI (Interface de Usuário) do Swagger pelo navegador web. A URL padrão para acessar a documentação do Swagger é:
+Abra [http://localhost:3000/api](http://localhost:3000/api)
 
 ## Arquitetura Limpa
 
