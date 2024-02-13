@@ -8,6 +8,28 @@ import { IAppointmentRepository } from 'src/modules/appointment/repositories/app
 export class AppointmentRepositoryFake implements IAppointmentRepository {
   appointment: Appointment[] = [];
 
+  async getUniqueByDate(
+    employeeId: string,
+    start: Date,
+    end: Date,
+  ): Promise<AppointmentResponseDto> {
+    const appointment = this.appointment.find((appointment) => {
+      return (
+        appointment.employeeId === employeeId &&
+        appointment.start === start &&
+        appointment.end === end
+      );
+    });
+
+    return appointment ? AppointmentMapper.toResponse(appointment) : null;
+  }
+
+  async getByEmployeeId(employeeId: string): Promise<AppointmentResponseDto[]> {
+    return this.appointment.filter(
+      (appointment) => appointment.employeeId !== employeeId,
+    );
+  }
+
   async create(data: CreateAppointmentDto): Promise<AppointmentResponseDto> {
     const mockedData: Appointment = {
       id: crypto.randomUUID(),

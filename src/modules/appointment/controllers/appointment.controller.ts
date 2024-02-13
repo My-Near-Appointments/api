@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpStatus,
   Param,
   Post,
@@ -15,6 +16,7 @@ import { UpdateAppointmentDto } from 'src/modules/appointment/dtos/update-appoin
 import { CreateAppointmentUseCase } from 'src/modules/appointment/usecases/create-appointment.use-case';
 import { DeleteAppointmentUseCase } from 'src/modules/appointment/usecases/delete-appointment.use-case';
 import { UpdateAppointmentUseCase } from 'src/modules/appointment/usecases/update-appointment.use-case';
+import { GetAppointmentByEmployeeUseCase } from 'src/modules/appointment/usecases/get-appointment-by-employee.use-case';
 
 @Controller('v1/appointment')
 export class AppointmentController {
@@ -22,7 +24,26 @@ export class AppointmentController {
     private readonly createAppointmentUseCase: CreateAppointmentUseCase,
     private readonly updateAppointmentUseCase: UpdateAppointmentUseCase,
     private readonly deleteAppointmentUseCase: DeleteAppointmentUseCase,
+    private readonly getAppointmentByEmployeeUseCase: GetAppointmentByEmployeeUseCase,
   ) {}
+
+  @ApiTags('appointment')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Retrieved list of appointments by employeeId',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Validation errors',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Server errors',
+  })
+  @Get(':employeeId')
+  async getByEmployeeId(@Param('employeeId') employeeId: string) {
+    return this.getAppointmentByEmployeeUseCase.execute(employeeId);
+  }
 
   @ApiTags('appointment')
   @ApiResponse({

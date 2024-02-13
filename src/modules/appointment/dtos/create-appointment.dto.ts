@@ -1,18 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateAppointmentDto {
   @ApiProperty({
     description: 'Start date for the appointment',
   })
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
   start: Date;
 
   @ApiProperty({
     description: 'End date for the appointment',
   })
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
   end: Date;
 

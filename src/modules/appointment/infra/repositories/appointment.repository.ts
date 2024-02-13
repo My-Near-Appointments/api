@@ -11,6 +11,26 @@ import { PrismaService } from 'src/prisma.service';
 export class AppointmentRepository implements IAppointmentRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
+  async getByEmployeeId(employeeId: string): Promise<AppointmentResponseDto[]> {
+    const appointments = await this.prismaService.appointment.findMany({
+      where: { employeeId },
+    });
+
+    return appointments.map(AppointmentMapper.toResponse);
+  }
+
+  async getUniqueByDate(
+    employeeId: string,
+    start: Date,
+    end: Date,
+  ): Promise<AppointmentResponseDto> {
+    const appointment = await this.prismaService.appointment.findFirst({
+      where: { employeeId, start, end },
+    });
+
+    return appointment ? AppointmentMapper.toResponse(appointment) : null;
+  }
+
   async create(data: CreateAppointmentDto): Promise<AppointmentResponseDto> {
     const appointment = await this.prismaService.appointment.create({
       data: {

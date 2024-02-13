@@ -4,6 +4,12 @@ import { UpdateAppointmentDto } from 'src/modules/appointment/dtos/update-appoin
 
 export interface IAppointmentRepository {
   create(data: CreateAppointmentDto): Promise<AppointmentResponseDto>;
+  getByEmployeeId(employeeId: string): Promise<AppointmentResponseDto[]>;
+  getUniqueByDate(
+    employeeId: string,
+    start: Date,
+    end: Date,
+  ): Promise<AppointmentResponseDto>;
   update(
     id: string,
     data: UpdateAppointmentDto,

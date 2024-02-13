@@ -8,7 +8,7 @@ export class AppointmentMapper {
       start: appointment.start,
       end: appointment.end,
       companyId: appointment.companyId,
-      employeeId: appointment.companyId,
+      employeeId: appointment.employeeId,
       userId: appointment.userId,
       createdAt: appointment.createdAt,
       updatedAt: appointment.updatedAt,
